@@ -10,8 +10,42 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    eventCount: 5,
   };
+  eventCount = 5
+  searchLocation = 'all'
+  updateLocation = location => {
+    let locationEvents;
+    this.searchLocation = location
+    getEvents().then((events) => {
+        if (this.searchLocation === "all") {
+          locationEvents = events.slice(0, this.eventCount);
+        } else {
+          locationEvents = events
+            .filter((event) => event.location === this.searchLocation)
+            .slice(0, this.eventCount);
+        }
+        this.setState({
+          events: locationEvents,
+        });
+    });
+    }
+
+    updateCount = count => {
+        let locationEvents;
+        this.eventCount = parseInt(count)
+        getEvents().then((events) => {
+            if (this.searchLocation === "all") {
+              locationEvents = events.slice(0, this.eventCount);
+            } else {
+              locationEvents = events
+                .filter((event) => event.location === this.searchLocation)
+                .slice(0, this.eventCount);
+            }
+            this.setState({
+              events: locationEvents,
+            });
+        });
+    }
   updateEvents = (location, eventCount) => {
     let locationEvents;
     getEvents().then((events) => {
@@ -47,12 +81,11 @@ class App extends Component {
       <div className="App">
         <CitySearch
           locations={this.state.locations}
-          updateEvents={this.updateEvents}
-          eventCount={this.state.eventCount}
+          updateLocation={this.updateLocation}
         />
         <NumberOfEvents
-          eventCount={this.state.eventCount}
-          updateEvents={this.updateEvents}
+          eventCount={this.eventCount}
+          updateCount={this.updateCount}
         />
         <EventList events={this.state.events} />
       </div>
