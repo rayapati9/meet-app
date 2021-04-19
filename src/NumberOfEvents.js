@@ -18,7 +18,6 @@ class NumberOfEvents extends Component {
       <div className="event-number">
         <label htmlFor="numberOfEvent"></label>
         <input
-          defaultValue={this.props.eventCount}
           type="number"
           name="numberOfEvent"
           className="event-number-input"
