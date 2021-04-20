@@ -48,12 +48,17 @@ export const getEvents = async () => {
   }
 
   if (!navigator.onLine) {
-    const events = localStorage.getItem("lastEvents");
+    const data = localStorage.getItem("lastEvents");
+    const parsedData = JSON.parse(data).events;
     NProgress.done();
-    return {
-      events: JSON.parse(events).events,
-      locations: extractLocations(JSON.parse(events).events),
-    };
+    return parsedData;
+  }
+
+  if (!navigator.onLine) {
+    const data = localStorage.getItem("lastEvents");
+    const parsedLocations = extractLocations(JSON.parse(data).events);
+    NProgress.done();
+    return parsedLocations;
   }
 
   const token = await getAccessToken();
