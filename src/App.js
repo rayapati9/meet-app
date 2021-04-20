@@ -11,11 +11,11 @@ class App extends Component {
     events: [],
     locations: [],
   };
-  eventCount = 5
-  searchLocation = 'all'
-  updateLocation = location => {
+  eventCount = 5;
+  searchLocation = "all";
+  updateLocation = (location) => {
     let locationEvents;
-    this.searchLocation = location
+    this.searchLocation = location;
     getEvents().then((events) => {
       if (this.searchLocation === "all") {
         locationEvents = events.slice(0, this.eventCount);
@@ -28,11 +28,11 @@ class App extends Component {
         events: locationEvents,
       });
     });
-  }
+  };
 
-  updateCount = count => {
+  updateCount = (count) => {
     let locationEvents;
-    this.eventCount = parseInt(count)
+    this.eventCount = parseInt(count);
     getEvents().then((events) => {
       if (this.searchLocation === "all") {
         locationEvents = events.slice(0, this.eventCount);
@@ -45,7 +45,7 @@ class App extends Component {
         events: locationEvents,
       });
     });
-  }
+  };
   updateEvents = (location, eventCount) => {
     let locationEvents;
     getEvents().then((events) => {
@@ -79,6 +79,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Meet App</h1>
+        <h4>Choose your nearest city</h4>
         <CitySearch
           locations={this.state.locations}
           updateLocation={this.updateLocation}
